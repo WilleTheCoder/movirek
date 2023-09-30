@@ -1,0 +1,87 @@
+.page {
+  color: rgb(255, 255, 255);
+  height: 100%;
+}
+
+.overlay {
+  position: fixed;
+  min-width: 900px;
+  background-color: rgba(22, 25, 123, 0.89);
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* Center horizontally */
+  /* align-items: center; Center vertically */
+  z-index: 1000;
+  /* Ensure the overlay is above other content */
+}
+
+.upper-container {
+  padding: 30px;
+  background-color: rgba(13, 13, 13, 0.412);
+  height: 55%;
+  margin: 40px;
+  border-radius: 10px;
+  display: grid;
+  width: 800px;
+  grid-template-columns: repeat(5, 1fr);
+  /* 5 equal-width columns */
+  grid-template-rows: repeat(3, 1fr);
+  /* 3 equal-height rows */
+}
+
+.poster {
+  /* background-color: rgb(237, 237, 0); */
+  grid-area: 1 / 1 / -1 / 3;
+  transition: transform 0.3s ease;
+  border-radius: 5px;
+}
+
+.poster:hover {
+  transform: scale(1.05);
+}
+
+.poster img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.title {
+  /* background-color: aqua; */
+  grid-area: 1 / 3 / 2 / -1;
+}
+
+.title-content {
+  /* background-color: red; */
+  display: flex;
+  margin-right: 10px;
+}
+
+.title-content p {
+  background-color: rgba(42, 43, 106, 0.607);
+  padding: 5px;
+  margin-right: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.title p {
+  font-size: 17px;
+  padding-left: 10px;
+
+}
+
+.description {
+  /* background-color: rgb(102, 252, 21); */
+  grid-area: 2 / 3 / -1 / -1;
+}
+
+
+.lower-container {
+  background-color: rgba(0, 0, 0, 0.67);
+  height: 45%;
+}

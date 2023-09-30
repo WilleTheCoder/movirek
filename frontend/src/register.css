@@ -1,0 +1,44 @@
+.rcontainer{
+    /* background-color: rgb(193, 193, 193); */
+    height: 900px;
+    width: 60%;
+    min-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.title{
+    
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form .inp{
+    margin-top : 30px;
+}
+
+.form .but{
+    margin-top : 30px;
+}
+
+.rdescription{
+    padding: 70px;
+    font-size: large;
+    width: 500px;
+    text-align: center;
+    /* opacity: 0.6; */
+}
+
+.errormsg{
+    color: rgb(224, 72, 72);
+}
+
+.successmsg{
+    color: rgb(72, 224, 112);
+}
