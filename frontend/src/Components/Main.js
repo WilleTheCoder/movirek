@@ -1,11 +1,11 @@
-import './Main.css'
-import Box from './Box'
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faCircleRight, faCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import Box from './Box'
 import Page from './Page'
 import Header from './Header'
-import '../global.css'
+import '../styling/main.css'
+import '../styling/global.css'
 
 function Main() {
     const [data, setData] = useState([])
@@ -75,29 +75,29 @@ function Main() {
     }
 
     return (
-        <>
-        <Header></Header>
-        <div className='main'>
-            {showItem ? (
-                <div className='overlay overlay-active'>
-                    <Page data={showItem} />
-                </div>) : null}
+            <div className='bg'>
+            <Header></Header>
+                <div className='main'>
+                    {showItem ? (
+                        <div className='overlay overlay-active'>
+                            <Page data={showItem} />
+                        </div>) : null}
 
-            {/* <Page></Page> */}
-            <div className='container'>
-                <div className='box-grid'>
-                    {data.results && data.results.map(item =>
-                        <Box key={item.id} data={item} onBoxClick={(event) => handleBoxClick(item, event)} ></Box>
-                    )}
-                </div>
-                <div className='icon-group'>
-                    <FontAwesomeIcon icon={faArrowLeft} className='arrow-icon' onClick={deincrementPage} />
-                    <FontAwesomeIcon icon={faArrowRight} className='arrow-icon' onClick={incrementPage} />
+                    <div className='container'>
+                        <div className='box-grid'>
+                            {data.results && data.results.map(item =>
+                                <Box key={item.id} data={item} onBoxClick={(event) => handleBoxClick(item, event)} ></Box>
+                            )}
+                        </div>
+                        <div className='icon-group'>
+                            <FontAwesomeIcon icon={faCircleLeft} className='arrow-icon' onClick={deincrementPage} />
+                            <FontAwesomeIcon icon={faCircleRight} className='arrow-icon' onClick={incrementPage} />
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        </>
-    );
-}
+   
+    ); 
+};
 
 export default Main;

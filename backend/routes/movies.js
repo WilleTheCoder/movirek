@@ -1,10 +1,13 @@
 const express = require('express')
 require('dotenv').config()
+const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
+
 
 const router = express.Router()
 const baseurl = 'https://api.themoviedb.org/3/movie/157336'
 
+// exteral
 router.get('/popular', (req, res) => {
     const page = parseInt(req.query.page) || 1;
     console.log("fetching!!")
@@ -20,7 +23,7 @@ router.get('/popular', (req, res) => {
         })
 })
 
-
+// external
 router.get('/details', (req, res) => {
     console.log("Fetching movie details");
     const movie_id = req.query.movie_id
@@ -36,17 +39,49 @@ router.get('/details', (req, res) => {
         })
 })
 
+// internal
+router.post('/loginUser', (req, res) => {
+    console.log('iniating login', req.body.username, req.body.password)
+
+    const query = User.findOne({ username: req.body.username }).exec()
+    query.then((user) => {
+        if (user) {
+            if (user.password === req.body.password) {
+                // generate JWT
+                const payload = {
+                    username: user.password,
+                    password: user.username,
+                }
+                const token = jwt.sign(payload, process.env.JWT_KEY, {
+                    expiresIn: '1h',
+                })
+
+                res.json({ login_status: true, token: token });
+            } else {
+                res.json({ login_status: false });
+            }
+        } else {
+            res.json({ login_status: false });
+        }
+    }).catch((error) => {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while processing your request.' });
+    });
+})
+
+// internal
 router.post('/postNewAccount', (req, res) => {
     console.log("posting")
 
     newUser = new User({
         username: req.body.username,
         password: req.body.password,
+        ratings: [],
     })
 
     newUser.save()
 
-    res.json({ mesage: "New Account Created Successfully!" })
+    res.json({ message: "New Account Created Successfully!" })
 })
 
 
@@ -66,6 +101,11 @@ router.get('/getUserStatus', (req, res) => {
             console.log(error)
             res.json({ status: false })
         })
+})
+
+router.post('/ratings', (req, res)=> {
+    console.log('rating movie');
+    res.json({})
 })
 
 

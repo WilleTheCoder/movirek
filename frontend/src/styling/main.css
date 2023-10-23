@@ -1,0 +1,42 @@
+
+
+/* Styles for the Font Awesome icons */
+.arrow-icon {
+  font-size: 40px;
+  /* Adjust icon size */
+  color: #ffffff;
+  /* Icon color */
+  cursor: pointer;
+  /* Add cursor pointer on hover */
+  margin: 50px 40px;
+  /* Add margin between icons */
+  background-color: rgba(0, 31, 78, 0.597);
+  border-radius: 100px;
+  transition: transform 0.3s ease;
+}
+
+.arrow-icon:hover {
+  /* color: #ffffff; */
+  transform: scale(1.1);
+}
+
+.main .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+.box-grid {
+  /* margin: 10px; */
+  /* padding: 10px; */
+  /* background-color: rgb(2, 1, 19); */
+  /* background-blend-mode: lighten; */
+  /* Create a 4-column grid layout */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* 4 columns with equal width */
+  gap: 60px;
+  /* Adjust the gap between boxes as needed */
+}

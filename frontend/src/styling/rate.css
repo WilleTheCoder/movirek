@@ -1,0 +1,17 @@
+.rateycon{
+    padding: 20px;
+}
+.ratetitle{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.popcorn{
+    width: 30px;
+    padding: 1px;
+    cursor: pointer;
+}
+.popcorn:hover {
+    transform: scale(1.2);
+}

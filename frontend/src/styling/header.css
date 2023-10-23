@@ -1,0 +1,75 @@
+.logo img{
+height: 100px;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 70px 70px; 
+    /* background-color: rgba(19, 27, 255, 0.47); */
+    padding-top: 100px;
+}
+
+.search {
+    flex: 1;
+    text-align: left;
+    margin-left: 50px;
+}
+
+.login {
+    flex: 1;
+    text-align: right;
+    margin-right: 50px;
+    text-decoration: none;
+}
+
+.login a{
+    color: white;
+    text-decoration: none;
+}
+
+.login p{
+    font-size: 30px;
+    color: rgb(11, 30, 79);
+    transition: color 0.3s ease;
+}
+
+.login p:hover{
+    color: rgb(0, 84, 252);
+}
+
+.login button{
+    margin: 10px;
+}
+
+
+.logo{
+    flex: 1;
+    text-align: center;
+}
+
+.logo img{
+    transition: transform 0.3s ease ;
+    /* width: 90%; */
+    height: auto;
+}
+
+.logo img:hover{
+    transform: scale(1.05);
+}
+
+
+.slogan{
+    font-size: 0px;
+    color:white;
+    margin-top: 10px;
+}
+
+.slogan .blue-text{
+    color: rgb(0, 132, 255);
+}
+
+.slogan .red-text{
+    color: rgb(199, 71, 71);
+}

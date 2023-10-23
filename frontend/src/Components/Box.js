@@ -1,5 +1,5 @@
 import React from 'react';
-import './Box.css';
+import '../styling/box.css';
 
 function Box({ data, onBoxClick }) {
   const boxClickHandler = (event) => {
@@ -20,8 +20,7 @@ function Box({ data, onBoxClick }) {
           </div>
           <div className='back'>
             <div className='content'>
-              <h2>{data.title}</h2>
-              {/* <p>{data.release_date}</p> */}
+              {/* <h3>{data.title}</h3> */}
             </div>
           </div>
         </div>

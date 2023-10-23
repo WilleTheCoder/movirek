@@ -1,0 +1,134 @@
+.profilecon {
+    background-color: rgba(0, 31, 39, 0.568);
+    width: 50%;
+    min-width: 900px;
+    border: 2px solid rgb(7, 98, 255);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    color: white;
+}
+
+.uppercon {
+    /* grid-area: 1 / 1 / 2 / -1;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    /* padding-top: 40px; */
+    /* font-size: 30px; */ 
+    display: flex;
+    justify-content: space-between;
+    grid-area: 1 / 1 / 2 / -1;
+    width: 100%;
+    height: 100%;
+    /* background-color: red; */
+}
+
+.uppercon .profile-text {
+    /* border: 2px solid rgb(7, 98, 255); */
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    width: 100px;
+    height: fit-content;
+    justify-content: flex-end;
+    font-size: 22px;
+    text-align: center;
+    padding: 5px;
+    margin: 0;
+}
+
+.uppercon .profile-text:nth-child(2) {
+    /* border: 2px solid rgb(7, 98, 255); */
+    border-radius: 10px;
+    background-color: rgb(0, 46, 197);
+    width: 200px;
+    height: fit-content;
+    justify-content: flex-end;
+    font-size: 22px;
+    text-align: center;
+    padding: 5px;
+    margin: 0;
+    transition: background-color 1s ease;
+}
+
+.uppercon .profile-text:nth-child(2):hover {
+    background-color: rgb(0, 0, 0);
+}
+
+
+
+.uppercon .user-text {
+    align-self: flex-end;
+}
+
+.uppercon button {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid rgb(7, 98, 255);
+    background-color: rgb(13, 65, 236);
+    color: white;
+    font-size: 15px;
+    transition: background-color 1s ease;
+}
+
+.midcon {
+    /* background-color: rgb(0, 41, 44); */
+    grid-area: 2 / 1 / 5 / -1;
+    width: 100%;
+    height: 100%;
+}
+
+.mcon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 60px;
+    padding-right: 60px;
+    height: 100%;
+}
+
+.midcon .genMovie {
+    height: 40px;
+    width: 220px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid rgb(7, 98, 255);
+    background-color: rgb(13, 65, 236);
+    color: white;
+    font-size: 15px;
+    transition: background-color 1s ease;
+}
+
+.profileImageCon .profileImage {
+    background-color: rgb(255, 255, 255);
+    height: 220px;
+    width: 220px;
+    border-radius: 100%;
+    border: 2px solid rgb(255, 255, 255);
+}
+
+.profileImageCon .dataCon {
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.midcon .favMovie {
+    height: 300px;
+    width: 220px;
+    background-color: rgb(255, 255, 255);
+}
+
+
+
+.lowcon {
+    /* background-color: rgb(51, 0, 79); */
+    grid-area: 5 / 1 / -1 / -1;
+    width: 100%;
+    height: 100%;
+}

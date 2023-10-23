@@ -1,14 +1,15 @@
-### frontend
+# MOVIREK
 
-npx create-react-app movirek
+# Frontend
+**Init react app**
 
-npm start
+      npx create-react-app movirek
+      npm start
 
-npm install --save font-awesome
 
-ROUTE
+## Route
 
-npm install react-router-dom
+    npm install react-router-dom
 
       import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -24,45 +25,64 @@ npm install react-router-dom
       }
 
 
-styling
+## Styling
 
-flexbox: https://www.youtube.com/watch?v=phWxA89Dy94
-grid: https://www.youtube.com/watch?v=EiNiSFIPIQE
+### Flexbox and Grid:
+    https://www.youtube.com/watch?v=phWxA89Dy94
+    https://www.youtube.com/watch?v=EiNiSFIPIQE
 
-### backend
+### Fontawesome
 
-npm init
+    npm i --save @fortawesome/free-solid-svg-icons
+    npm i --save @fortawesome/free-regular-svg-icons
+    npm i --save @fortawesome/free-brands-svg-icons
+
+
+----
+# Backend
+
+## JWT Authentication
+    https://www.permify.co/post/jwt-authentication-in-react/
+      npm install jsonwebtoken
+
+## API Endpoints
+
+    https://developer.themoviedb.org/reference/intro/getting-started
+    https://developer.themoviedb.org/reference/discover-movie
+
+**Crew and Cast**
+
+    https://api.themoviedb.org/3/movie/565770/credits
+
+**Budget, Genres, Homepage, Revenue, Runtime, Spoken_languages, Tagline**
+
+    https://api.themoviedb.org/3/movie/565770
+
+
+## Database
+Mongodb cloud
+
+    https://cloud.mongodb.com/v2/6516cdf25c824f214caf4bb4#/metrics/replicaSet/6516cee06308ac7e3a420742/explorer/movirek/users/find
 
 npm install express mongoose body-parser cors
-
-node app.js
-
-enviroment variables dotenv: https://nodejs.dev/en/learn/how-to-read-environment-variables-from-nodejs/
-
-MONGOOSE:
 
 import: 
 const mongoose = require('mongoose')
 
-find conn_string: 
-const conn_str = `mongodb+srv://admin:$<password>@cluster0.kqpocvf.mongodb.net/<database>?retryWrites=true&w=majority`
-connect to db:
-async function connectDb() {
+    async function connectDb() {
+          try {
+              await mongoose.connect(conn_str, {
+                  useNewUrlParser: true,
+                  useUnifiedTopology: true,
+              });
 
-    try {
-        await mongoose.connect(conn_str, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+              console.log('connected')
+          } catch (error) {
+              console.log(error)
+          }
+      }
 
-        console.log('connected')
-    } catch (error) {
-        console.log(error)
-    }
-
-}
-
-create file .models/userModel:
+**Create file: .models/userModel:**
 
     const mongoose = require('mongoose');
     const Schema = mongoose.Schema;
@@ -77,40 +97,54 @@ create file .models/userModel:
 
     module.exports = User
 
+**POST**
+
+    const User = require('./models/userModel)
+
+      const newUser = new User ({
+        id: 1,
+        username: 'kalle',
+        password: 'cool123'
+      })
+
+      newUser.save();
+
+# Other
+
+## USEREF
+
+    import React, {useRef} from 'react'
+
+    const usernameRef = useRef()
+    ..
+    <input ref={usernameRef}></input>
+
+    Retrieve value: usernameRef.current.value
+
+## DOTENV
+**enviroment variables dotenv**
+
+      https://nodejs.dev/en/learn/how-to-read-environment-variables-from-nodejs/
+----
 
 
-POST
-  const User = require('./models/userModel)
+# TODO
 
-    const newUser = new User ({
-      id: 1,
-      username: 'kalle',
-      password: 'cool123'
-    })
+## Registration
+- [x] Enter a Username and Password
+- [x] Check if the username already exists
+- [x] Register with the provided credentials
+- [x] Store the information in the database with a hashed password
 
-    newUser.save();
+## Login
 
+- [x] Enter your Username and Password
+- [x] Verify if the password matches the username
+- [x] Generate JWT token and send back to frontend
 
-
-USEREF
-
-import React, {useRef} from 'react'
-
-const usernameRef = useRef()
-..
-<input ref={usernameRef}></input>
-
-Retrieve value: usernameRef.current.value
-
-
-
-
-## TODO
-
-- Sign up, login and authentication
-- UI X
-- Fetch data via API about movies series X
-  - Title
+## API
+- [x] **Fetch Data via API about Movies and Series**
+  - Title 
   - Year
   - Image
   - Category
@@ -119,44 +153,56 @@ Retrieve value: usernameRef.current.value
   - Director 
   - Description
 
-- Page for each movie item
-  - Rate if logged in
-  - Imdb rating
-  - See description
+- [x] **Page for Each Movie Item**
 
-- Create a custom score based on activity on page 1 - 100 popcorn - higher score more bigger difference
-- Based on ratings recommend other movies
-- For each user keep track of what movies they like and recommend other likely ones.
-- Create an account
-  - Create lists
-  - Add to lists
-  - Rate movies
+## Account Features
+- [ ] Based on Ratings, Recommend Other Movies
+- [ ] 1 - 100 Popcorn 🍿 - Higher Score, Bigger Difference *
+- [ ] Create Lists
+- [ ] Add to Lists
+- [ ] Rate Movies
+- [ ] Achievements: e.g., Rated 10 Movies, Made a List ➡️ Level Up (XP)
 
-- Filter movies, series, year, popular etc
+## Filter
+- [ ] Search for movies and series
+- [ ] Filter Movies, Series, Year, Popular, etc
 
+## Misc
+- [ ] Make UI look good
+- [ ] Make UI responsive
+- [ ] Store images somehow
 
-SIGNUP
-- skriv in username och password
-- kontroll att det inte redan finns etc
-- registrera sig -> 
-- lägger in dom i databasen med username, password(hashed)
+# Components
 
-LOGIN
-- skriv in användarnamn och lösen
-- se om password stämmer överens med username
+# User profile
+- [ ] Add favorite movie
+- [ ] User profile picture
+- [ ] Show lists
+- [ ] Edit profile
+- [ ] AI
 
+# User class
+- [ ] When i login, user data is fetched from the database
+  - [ ] Lists, favorite movies, ratings..
+  - [ ] Create a class with this information to easily fetch
+  - [ ] Send class to all comp which uses the user data
 
+# Page
+- [ ] Rate the movie *
+  - Rate window
+  - Close window
+  - submit rating 1-100
+  - send to backend and put in database
+- [ ] Add the movie to a list 
+- [ ] Add to favorites
+- [ ] Remove aswell
+- [ ] Fetch similar movies with API
+- [ ] Add trailer and photos
 
+# Main
+- [ ] Search function
+- [ ] Filter function
+- [ ] Add wall to auth pages
+- [ ] Fix faster loading of movies
 
-### api
-https://developer.themoviedb.org/reference/intro/getting-started
-https://developer.themoviedb.org/reference/discover-movie
-
-endpoints
-
-crew and cast
-https://api.themoviedb.org/3/movie/565770/credits
-
-budget, genres, homepage, revenue, runtime, spoken_languages, tagline
-https://api.themoviedb.org/3/movie/565770
-
+Let's create an amazing movie app! 🎥🍿
