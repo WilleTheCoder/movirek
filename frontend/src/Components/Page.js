@@ -14,6 +14,7 @@ function Page({ data }) {
     const [ratingView, setRatingView] = useState(0);
 
     const updateRating = (value) => {
+        console.log('updating rating!')
         setRating(value);
         console.log(data.id, user)
         fetch("http://localhost:5000/ratings", {
@@ -21,7 +22,7 @@ function Page({ data }) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ rating: value }),
+            body: JSON.stringify({ rating: value, username: user, movieId: data.id}),
         })
             .then((res) => res.json)
             .then((data) => {
@@ -119,12 +120,6 @@ function Page({ data }) {
                             </button>
                         </div>
 
-                        {/* <button>
-                            ADD TO LIST
-                        </button>
-                        <button>
-                            FAVORITE
-                        </button> */}
                     </div>
                 ) : (
                     <></>

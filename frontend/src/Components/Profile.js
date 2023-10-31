@@ -1,13 +1,16 @@
 import Header from './Header'
 import '../styling/profile.css'
 import '../styling/global.css'
+import { useNavigate } from 'react-router-dom'
 
 function Profile() {
   const user = localStorage.getItem('user')
+  const navigate = useNavigate()
 
   const handleClick = () =>{
     localStorage.removeItem('user')
     localStorage.removeItem('token')
+    navigate('/')
   }
 
   return (
@@ -19,7 +22,7 @@ function Profile() {
 
           <div className='uppercon'>
             <p className='profile-text'>PROFILE</p>
-            <button className='profile-text' onClick={handleClick}>LOG OUT</button>
+            <button className='profile-text' onClick={handleClick}>Log Out</button>
           </div>
 
           <div className='midcon'>

@@ -69,20 +69,25 @@ router.post('/loginUser', (req, res) => {
     });
 })
 
-// internal
-router.post('/postNewAccount', (req, res) => {
-    console.log("posting")
 
-    newUser = new User({
+router.post('/postNewAccount', async (req, res) => {
+    try {
+      console.log("posting");
+  
+      const newUser = new User({
         username: req.body.username,
         password: req.body.password,
         ratings: [],
-    })
-
-    newUser.save()
-
-    res.json({ message: "New Account Created Successfully!" })
-})
+      });
+  
+      await newUser.save();
+  
+      res.json({ message: "New Account Created Successfully!" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
 
 
 router.get('/getUserStatus', (req, res) => {
@@ -103,9 +108,31 @@ router.get('/getUserStatus', (req, res) => {
         })
 })
 
-router.post('/ratings', (req, res)=> {
-    console.log('rating movie');
-    res.json({})
+// post rating
+router.post('/ratings', async (req, res) => {
+    try{
+        console.log(req.body.username, req.body.rating, req.body.movieId);
+        console.log('rating movie');
+    
+        const user = await User.findOne({ username: req.body.username });
+        if(!user) {
+            return res.status(400).json({error: 'no user found'})
+        }
+
+        const rating = user.ratings.find((rating) => rating.movieId === req.body.movieId)
+    
+        if (rating) {
+            rating.rating = req.body.rating
+        } else {
+            user.ratings.push({ movieId: req.body.movieId, rating: req.body.rating })
+        }
+
+        await user.save();
+        return res.json({success: 'added rating'})
+
+    } catch(error){
+        return res.status(500).json({error: 'failed to add rating'})
+    }
 })
 
 

@@ -2,11 +2,14 @@ import React, { useRef, useEffect, useState } from 'react'
 import '../styling/register.css'
 import Header from './Header'
 import '../styling/global.css'
+import { useNavigate } from 'react-router-dom'
 {/* <>
 <Header></Header>
 <Main></Main>
 </> */}
 function Register() {
+
+  const navigate = useNavigate()
 
   const [errorMsg, setErrorMsg] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
@@ -57,7 +60,6 @@ function Register() {
       if (status) {
         setErrorMsg('Username already taken!');
       } else {
-        setSuccessMsg(`Account '${usernameRef.current.value}' created`);
         fetch('http://localhost:5000/postNewAccount', {
           method: 'POST',
           headers: {
@@ -65,9 +67,13 @@ function Register() {
           },
           body: JSON.stringify({ username: usernameRef.current.value, password: passwordRef.current.value }),
         })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
+        .then((res) => res.json())
+        .then((data) => {
+          setSuccessMsg(`Account '${usernameRef.current.value}' created`);
+          console.log(data);
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('user', usernameRef.current.value)
+          navigate('/')
           })
           .catch((error) => {
             console.log(error);
