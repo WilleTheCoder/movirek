@@ -52,6 +52,8 @@ function Page({ data }) {
 
     useEffect(() => {
         console.log('fetching!')
+
+        // fetching movie page data
         fetch(`http://localhost:5000/details?movie_id=${data.id}`)
             .then((res) => {
                 if (!res.ok) {
@@ -65,6 +67,21 @@ function Page({ data }) {
             .catch((error) => {
                 console.log(error)
             })
+
+        // fetching recommended movies
+        fetch(`http://localhost:5000/recommendedMovies?movie_id=${data.id}`)
+            .then((res) => {
+                if(!res.ok){
+                    throw new Error('failed fetch')
+                }
+                res.json()
+            })
+            .then((data) => {
+                console.log('all good')
+                console.log(data)
+            })
+            .catch((err) => console.log(err))
+
     }, [data]);
 
 

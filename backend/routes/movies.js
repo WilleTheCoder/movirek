@@ -15,7 +15,6 @@ router.get('/popular', (req, res) => {
     fetch(`${url}?page=${page}&api_key=${process.env.API_KEY}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data)
             res.json(data)
         })
         .catch((error) => {
@@ -37,6 +36,19 @@ router.get('/details', (req, res) => {
         .catch((error) => {
             console.log(error)
         })
+})
+
+// get recommended movies based on movie
+router.get('/recommendedMovies', (req, res) => {
+    console.log('fetching recommended movies')
+    const movie_id = req.query.movie_id
+    
+    fetch(`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${process.env.API_KEY}`)
+        .then((res) => res.json())
+        .then((data) => {
+            res.json(data)
+        })
+        .catch((err) => console.log(err))
 })
 
 // internal
