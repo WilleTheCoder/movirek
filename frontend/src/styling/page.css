@@ -20,7 +20,7 @@
 .upper-container {
   padding: 30px;
   background-color: rgba(13, 13, 13, 0.412);
-  height: 55%;
+  height: 40%;
   margin: 40px;
   border-radius: 10px;
   display: grid;
@@ -87,20 +87,23 @@
 .usermenu {
   /* background-color: red; */
   grid-area: 3 / 3 / -1 / -1;
+  display: flex;
 }
 
-.ratecon .icon {
+.usermenu .icon {
   font-size: 2rem;
   color: rgb(255, 255, 255);
   transition: transform 0.3s ease;
+  cursor: pointer;
+  margin: 20px;
 }
 
-.ratecon .icon:hover {
+.usermenu .icon:hover {
   color: rgb(255, 255, 255);
   transform: scale(1.2);
 }
 
-.ratecon button {
+.usermenu button {
   background: none;
   border: none;
   padding: 0;
@@ -115,7 +118,12 @@
 
 .lower-container {
   background-color: rgba(0, 0, 0, 0.67);
-  height: 45%;
+  padding: 20px;
+}
+
+.recMoviesCon{
+  display: flex;
+  padding: 20px;
 }
 
 .ratingcon {

@@ -41,6 +41,23 @@
 ----
 # Backend
 
+## init Express
+    npm i
+---
+
+    const express = require('express')
+    const app = express()
+
+    app.get('/', (req, res) => {
+        res.json('Hello World')
+    })
+
+    app.listen(3000, () => {
+        console.log('listen');
+    })
+
+
+
 ## JWT Authentication
     https://www.permify.co/post/jwt-authentication-in-react/
       npm install jsonwebtoken

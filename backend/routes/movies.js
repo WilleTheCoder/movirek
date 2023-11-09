@@ -8,6 +8,7 @@ const router = express.Router()
 const baseurl = 'https://api.themoviedb.org/3/movie/157336'
 
 // exteral
+// get popular movies
 router.get('/popular', (req, res) => {
     const page = parseInt(req.query.page) || 1;
     console.log("fetching!!")
@@ -22,7 +23,7 @@ router.get('/popular', (req, res) => {
         })
 })
 
-// external
+// get more details about a movie
 router.get('/details', (req, res) => {
     console.log("Fetching movie details");
     const movie_id = req.query.movie_id
@@ -42,7 +43,7 @@ router.get('/details', (req, res) => {
 router.get('/recommendedMovies', (req, res) => {
     console.log('fetching recommended movies')
     const movie_id = req.query.movie_id
-    
+
     fetch(`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${process.env.API_KEY}`)
         .then((res) => res.json())
         .then((data) => {
@@ -52,6 +53,7 @@ router.get('/recommendedMovies', (req, res) => {
 })
 
 // internal
+// attempts to login user
 router.post('/loginUser', (req, res) => {
     console.log('iniating login', req.body.username, req.body.password)
 
@@ -81,27 +83,28 @@ router.post('/loginUser', (req, res) => {
     });
 })
 
-
+//register new account
 router.post('/postNewAccount', async (req, res) => {
     try {
-      console.log("posting");
-  
-      const newUser = new User({
-        username: req.body.username,
-        password: req.body.password,
-        ratings: [],
-      });
-  
-      await newUser.save();
-  
-      res.json({ message: "New Account Created Successfully!" });
+        console.log("posting");
+
+        const newUser = new User({
+            username: req.body.username,
+            password: req.body.password,
+            ratings: [],
+            lists: [],
+        });
+
+        await newUser.save();
+
+        res.json({ message: "New Account Created Successfully!" });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
-  });
-  
+});
 
 
+// see if user exists
 router.get('/getUserStatus', (req, res) => {
     console.log("username:", req.query.username)
 
@@ -120,19 +123,19 @@ router.get('/getUserStatus', (req, res) => {
         })
 })
 
-// post rating
+// adds a new movie rating for a user
 router.post('/ratings', async (req, res) => {
-    try{
+    try {
         console.log(req.body.username, req.body.rating, req.body.movieId);
         console.log('rating movie');
-    
+
         const user = await User.findOne({ username: req.body.username });
-        if(!user) {
-            return res.status(400).json({error: 'no user found'})
+        if (!user) {
+            return res.status(400).json({ error: 'no user found' })
         }
 
         const rating = user.ratings.find((rating) => rating.movieId === req.body.movieId)
-    
+
         if (rating) {
             rating.rating = req.body.rating
         } else {
@@ -140,11 +143,41 @@ router.post('/ratings', async (req, res) => {
         }
 
         await user.save();
-        return res.json({success: 'added rating'})
+        return res.json({ success: 'added rating' })
 
-    } catch(error){
-        return res.status(500).json({error: 'failed to add rating'})
+    } catch (error) {
+        return res.status(500).json({ error: 'failed to add rating' })
     }
+})
+
+// add new list
+router.get('/addList', async (req, res) => {
+    try {
+        console.log(req.query.username);
+        console.log(req.query.list_name);
+
+        const user = await User.findOne({ username: req.query.username });
+        console.log(user);
+        if (!user) {
+            return res.status(400).json({ error: 'no user found' })
+        }
+        console.log("yyaa");
+        const listStatus = user.lists.find((key) => key.listname === req.query.list_name)
+
+        if (listStatus) {
+            res.json({ err: 'duplicate list name' })
+        } else {
+            console.log("yyaa");
+            user.lists.push({ listname: req.query.list_name, movies: [] })
+        }
+
+        await user.save()
+        return res.json({ success: 'added list' })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: 'failed to add rating' })
+    }
+
 })
 
 

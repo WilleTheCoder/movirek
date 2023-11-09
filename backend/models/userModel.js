@@ -6,10 +6,16 @@ const ratingSchema = new Schema({
     rating: Number,
 });
 
+const listSchema = new Schema({
+    listname: String,
+    movies: [{ movieId: Number }]
+})
+
 const userSchema = new Schema({
     username: String,
     password: String,
     ratings: [ratingSchema],
+    lists: [listSchema],
 })
 
 const User = mongoose.model('User', userSchema);

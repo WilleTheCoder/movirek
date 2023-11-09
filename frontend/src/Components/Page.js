@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus} from '@fortawesome/free-solid-svg-icons';
+
 import Rate from './Rate';
 import '../styling/page.css'
 import popcornIcon from '../assets/popcorn.png';
+import Box from './Box'
+import AddMovie from "./AddMovie";
 
 function Page({ data }) {
 
@@ -12,6 +16,8 @@ function Page({ data }) {
     const [fdata, setData] = useState(data);
     const [rating, setRating] = useState(null);
     const [ratingView, setRatingView] = useState(0);
+    const [addView, setAddView] = useState(0);
+    const [recData, setRecData] = useState(null)
 
     const updateRating = (value) => {
         console.log('updating rating!')
@@ -22,7 +28,7 @@ function Page({ data }) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ rating: value, username: user, movieId: data.id}),
+            body: JSON.stringify({ rating: value, username: user, movieId: data.id }),
         })
             .then((res) => res.json)
             .then((data) => {
@@ -30,6 +36,11 @@ function Page({ data }) {
             })
     }
 
+
+    const handleAddMovie = () => {
+        console.log('clicked on addmovie')
+        setAddView(1);
+    }
 
     const handleRateEvent = (event) => {
         event.stopPropagation();
@@ -71,14 +82,15 @@ function Page({ data }) {
         // fetching recommended movies
         fetch(`http://localhost:5000/recommendedMovies?movie_id=${data.id}`)
             .then((res) => {
-                if(!res.ok){
+                if (!res.ok) {
                     throw new Error('failed fetch')
                 }
-                res.json()
+                return res.json()
             })
             .then((data) => {
-                console.log('all good')
-                console.log(data)
+                console.log('fetched recommended movies')
+                console.log(data.results)
+                setRecData(data.results)
             })
             .catch((err) => console.log(err))
 
@@ -95,12 +107,20 @@ function Page({ data }) {
 
     return (
         <div className="page">
+
             {ratingView ? (
                 <div className="ratingcon">
                     <Rate onValueChange={updateRating}></Rate>
                 </div>
             ) : null
             }
+
+            {addView ? (
+                      <div className="ratingcon">
+                        <AddMovie></AddMovie>
+                        
+                         </div>
+            ) : (null)}
 
             <div className="upper-container">
                 <div className="poster">
@@ -126,23 +146,27 @@ function Page({ data }) {
                 {user ? (
                     <div className="usermenu">
                         <div className="ratecon">
-                            <button onClick={handleRateEvent}>
+    
                                 {rating ?
                                     (<div className="displayrating">
                                         <img src={popcornIcon} className='popcorn1'></img>
                                         <p>{rating}</p>
                                     </div>)
-                                    : (<FontAwesomeIcon icon={farStar} className="icon"></FontAwesomeIcon>)
+                                    : (<button onClick={handleRateEvent}><FontAwesomeIcon icon={farStar} className="icon"></FontAwesomeIcon> </button>)
                                 }
-                            </button>
                         </div>
-
+                        <button onClick={handleAddMovie}>
+                        <FontAwesomeIcon icon={faSquarePlus} className="icon" />
+                        </button>
                     </div>
                 ) : (
                     <></>
                 )}
             </div>
             <div className="lower-container">
+                <h1> Recommended </h1>
+                <div className="recMoviesCon">
+                </div>
             </div>
 
         </div>
