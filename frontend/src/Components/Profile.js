@@ -7,7 +7,7 @@ function Profile() {
   const user = localStorage.getItem('user')
   const navigate = useNavigate()
 
-  const handleClick = () =>{
+  const handleClick = () => {
     localStorage.removeItem('user')
     localStorage.removeItem('token')
     navigate('/')

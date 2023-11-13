@@ -12,14 +12,7 @@ function Main() {
     const [page, setPage] = useState(1)
     const [showItem, setShowItem] = useState(null)
 
-    const handleBoxClick = (item, event) => {
-        console.log("in main click")
-        setShowItem(item)
-        console.log(item.title)
-    }
-
     useEffect(() => {
-        console.log("fetching new data..")
         fetch(`http://localhost:5000/popular?page=${page}`)
             .then(res => {
                 if (!res.ok) {
@@ -35,8 +28,6 @@ function Main() {
             });
     }, [page]);
 
-
-
     useEffect(() => {
         const handleOutsideClick = (event) => {
             const overlay = document.querySelector('.overlay');
@@ -48,56 +39,46 @@ function Main() {
             }
         };
 
-        const openOverlay = () => {
-            document.body.classList.add('no-scroll'); // Add no-scroll class
-        };
-
         window.addEventListener('click', handleOutsideClick);
-
         return () => {
             document.removeEventListener('click', handleOutsideClick);
         };
     }, [showItem]);
 
-
-
     const incrementPage = () => {
-        console.log("Incrementing page")
-        console.log(page)
         setPage(page => page + 1);
     };
 
     const deincrementPage = () => {
-        console.log("Deincrementing page");
         if (page - 1 > 0) {
             setPage(page => page - 1)
         }
     }
 
     return (
-            <div className='bg'>
+        <div className='bg'>
             <Header></Header>
-                <div className='main'>
-                    {showItem ? (
-                        <div className='overlay overlay-active'>
-                            <Page data={showItem} />
-                        </div>) : null}
+            <div className='main'>
+                {showItem ? (
+                    <div className='overlay overlay-active'>
+                        <Page data={showItem} />
+                    </div>) : null}
 
-                    <div className='container'>
-                        <div className='box-grid'>
-                            {data.results && data.results.map(item =>
-                                <Box key={item.id} data={item} onBoxClick={(event) => handleBoxClick(item, event)} ></Box>
-                            )}
-                        </div>
-                        <div className='icon-group'>
-                            <FontAwesomeIcon icon={faCircleLeft} className='arrow-icon' onClick={deincrementPage} />
-                            <FontAwesomeIcon icon={faCircleRight} className='arrow-icon' onClick={incrementPage} />
-                        </div>
+                <div className='container'>
+                    <div className='box-grid'>
+                        {data.results && data.results.map(item =>
+                            <Box key={item.id} data={item} onBoxClick={(event) => setShowItem(item)} ></Box>
+                        )}
+                    </div>
+                    <div className='icon-group'>
+                        <FontAwesomeIcon icon={faCircleLeft} className='arrow-icon' onClick={deincrementPage} />
+                        <FontAwesomeIcon icon={faCircleRight} className='arrow-icon' onClick={incrementPage} />
                     </div>
                 </div>
             </div>
-   
-    ); 
+        </div>
+
+    );
 };
 
 export default Main;

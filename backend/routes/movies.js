@@ -103,6 +103,30 @@ router.post('/postNewAccount', async (req, res) => {
     }
 });
 
+//add movie to list
+
+router.post('/addMovieToList', async (req, res) => {
+    console.log(req.body.username);
+    // res.json({status: "its good"})
+
+    const user = await User.findOne({username: req.body.username})
+    
+})
+
+// get all users list names
+router.get('/getUserLists', async (req, res) => {
+    rlist = []
+    const user = await User.findOne({ username: req.query.username })
+    if (!user) {
+        return res.status(400).json({ error: 'no user found' });
+    }
+    user.lists.map(elem => {
+        rlist.push(elem.listname)
+    })
+
+    return res.json(rlist);
+})
+
 
 // see if user exists
 router.get('/getUserStatus', (req, res) => {

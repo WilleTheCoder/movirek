@@ -10,12 +10,12 @@ function Rate(props) {
     const handleRateClick = (selectedRating) => {
         setRating(selectedRating);
     }
-    
+
     useEffect(() => {
-        if(rating){
+        if (rating) {
             props.onValueChange(rating)
         }
-    },[rating])
+    }, [rating])
 
     return (
         <div className="rateycon">

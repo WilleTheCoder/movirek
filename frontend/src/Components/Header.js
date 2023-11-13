@@ -6,8 +6,6 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
 
-    console.log("username: ", localStorage.getItem('user'))
-
     const user = localStorage.getItem('user')
 
     return (
@@ -33,7 +31,7 @@ function Header() {
                 <div className='login'>
                     <Link to='/profile'>
                         <p>
-                        <FontAwesomeIcon icon={faUser} />{"  "+user}
+                            <FontAwesomeIcon icon={faUser} />{"  " + user}
                         </p>
                     </Link>
                 </div>
@@ -51,8 +49,6 @@ function Header() {
             }
 
         </header>
-
-
     );
 }
 

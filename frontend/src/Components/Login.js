@@ -1,20 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../styling/login.css'
 import Header from './Header'
 import '../styling/global.css'
-{/* <>
-<Header></Header>
-<Main></Main>
-</> */}
+
 function Login() {
 
   const [errorMsg, setErrorMsg] = useState('')
-  
+
   const navigate = useNavigate()
   const usernameRef = useRef()
   const passwordRef = useRef()
-
   const showError = false;
 
   function checkInput(username, password) {
@@ -25,15 +21,11 @@ function Login() {
     return '';
   }
 
-
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log('login..');
     setErrorMsg(checkInput(usernameRef.current.value, passwordRef.current.value))
-    console.log("sasda", errorMsg)
 
     if (errorMsg === '') {
-      console.log('fetch..');
       fetch('http://localhost:5000/loginUser', {
         method: 'POST',
         headers: {
@@ -43,12 +35,11 @@ function Login() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
-          if(data.login_status){
+          if (data.login_status) {
             localStorage.setItem('token', data.token)
             localStorage.setItem('user', usernameRef.current.value)
             navigate('/')
-          } else{
+          } else {
             setErrorMsg('Invalid login')
           }
         })
@@ -57,10 +48,6 @@ function Login() {
         })
     }
   }
-  useEffect(() => {
-
-
-  }, [])
 
   return (
     <>

@@ -5,28 +5,21 @@ function CreateList() {
 
     const [listName, setList] = useState(null)
 
-
     const clickCreate = () => {
-        console.log('clicked on button');
         const name = document.querySelector('.inpCreateList').value
-        console.log(name);
-        if(name.length > 0){
+        if (name.length > 0) {
             setList(name)
         }
     }
 
     useEffect(() => {
-        if(listName){
-
+        if (listName) {
             const username = localStorage.getItem('user');
-            console.log(username);
-            console.log("creating list", listName);
             fetch(`http://localhost:5000/addList?list_name=${listName}&username=${username}`)
-            .then((res) => res.json)
-            .then((data) => {
-                console.log(data)
-            })
-            .catch((err) => console.log(err))
+                .then((res) => res.json)
+                .then((data) => {
+                })
+                .catch((err) => console.log(err))
         }
 
     }, [listName]);

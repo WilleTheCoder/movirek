@@ -1,0 +1,9 @@
+.listcon{
+    display: flex;
+    flex-direction: column;
+}
+
+.listcon button{
+    margin: 10px;
+    cursor: pointer;
+}

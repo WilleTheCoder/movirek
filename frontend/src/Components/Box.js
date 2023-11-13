@@ -4,7 +4,6 @@ import '../styling/box.css';
 function Box({ data, onBoxClick }) {
   const boxClickHandler = (event) => {
     event.preventDefault()
-    console.log("yo")
     event.stopPropagation();
     onBoxClick(data)
   };

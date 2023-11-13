@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
-import { faSquarePlus} from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 
 import Rate from './Rate';
 import '../styling/page.css'
 import popcornIcon from '../assets/popcorn.png';
 import Box from './Box'
-import AddMovie from "./AddMovie";
+import AddToList from "./AddToList";
 
 function Page({ data }) {
 
@@ -20,9 +20,7 @@ function Page({ data }) {
     const [recData, setRecData] = useState(null)
 
     const updateRating = (value) => {
-        console.log('updating rating!')
         setRating(value);
-        console.log(data.id, user)
         fetch("http://localhost:5000/ratings", {
             method: 'POST',
             headers: {
@@ -32,38 +30,37 @@ function Page({ data }) {
         })
             .then((res) => res.json)
             .then((data) => {
-                console.log(data)
             })
     }
 
 
-    const handleAddMovie = () => {
-        console.log('clicked on addmovie')
+    const handleAddMovieEvent = (event) => {
+        event.stopPropagation();
         setAddView(1);
     }
 
     const handleRateEvent = (event) => {
         event.stopPropagation();
-        console.log("setting rating view to true");
         setRatingView(1);
     }
 
     const handleClickOutside = (event) => {
         // Check if the click occurred outside the div
-        const ratingcon = document.querySelector('.ratingcon');
-        // console.log(
-        //     'clickclick', ratingView, ratingcon.contains(event.target)
-        // );
+        const list = document.querySelector('.add');
+        if (addView === 1 && (list.contains(event.target) === false)) {
+            setAddView(0)
+            event.stopPropagation();
+        }
 
-        if (ratingView === 1 && (ratingcon.contains(event.target) === false)) {
+        const rate = document.querySelector('.rate');
+        if (ratingView === 1 && (rate.contains(event.target) === false)) {
             setRatingView(0);
             event.stopPropagation();
         }
+
     }
 
     useEffect(() => {
-        console.log('fetching!')
-
         // fetching movie page data
         fetch(`http://localhost:5000/details?movie_id=${data.id}`)
             .then((res) => {
@@ -88,8 +85,6 @@ function Page({ data }) {
                 return res.json()
             })
             .then((data) => {
-                console.log('fetched recommended movies')
-                console.log(data.results)
                 setRecData(data.results)
             })
             .catch((err) => console.log(err))
@@ -103,24 +98,24 @@ function Page({ data }) {
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
-    }, [ratingView]);
+    }, [ratingView, addView]);
 
     return (
         <div className="page">
 
             {ratingView ? (
-                <div className="ratingcon">
+                <div className="pagemenu rate">
                     <Rate onValueChange={updateRating}></Rate>
                 </div>
             ) : null
             }
 
             {addView ? (
-                      <div className="ratingcon">
-                        <AddMovie></AddMovie>
-                        
-                         </div>
-            ) : (null)}
+                <div className="pagemenu add">
+                    <AddToList movie_id={data.id}></AddToList>
+                </div>
+            ) : null
+            }
 
             <div className="upper-container">
                 <div className="poster">
@@ -133,7 +128,7 @@ function Page({ data }) {
                     <h3> {fdata.release_date}</h3>
                     <div className="title-content">
                         {fdata && fdata.genres && Object.keys(fdata.genres).map((key) => (
-                            <p> {fdata.genres[key].name}</p>
+                            <p key={fdata.genres[key].name}> {fdata.genres[key].name}</p>
                         ))}
                     </div>
 
@@ -146,17 +141,17 @@ function Page({ data }) {
                 {user ? (
                     <div className="usermenu">
                         <div className="ratecon">
-    
-                                {rating ?
-                                    (<div className="displayrating">
-                                        <img src={popcornIcon} className='popcorn1'></img>
-                                        <p>{rating}</p>
-                                    </div>)
-                                    : (<button onClick={handleRateEvent}><FontAwesomeIcon icon={farStar} className="icon"></FontAwesomeIcon> </button>)
-                                }
+
+                            {rating ?
+                                (<div className="displayrating">
+                                    <img src={popcornIcon} className='popcorn1'></img>
+                                    <p>{rating}</p>
+                                </div>)
+                                : (<button onClick={handleRateEvent}><FontAwesomeIcon icon={farStar} className="icon" /> </button>)
+                            }
                         </div>
-                        <button onClick={handleAddMovie}>
-                        <FontAwesomeIcon icon={faSquarePlus} className="icon" />
+                        <button onClick={handleAddMovieEvent}>
+                            <FontAwesomeIcon icon={faSquarePlus} className="icon" />
                         </button>
                     </div>
                 ) : (

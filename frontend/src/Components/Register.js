@@ -3,26 +3,17 @@ import '../styling/register.css'
 import Header from './Header'
 import '../styling/global.css'
 import { useNavigate } from 'react-router-dom'
-{/* <>
-<Header></Header>
-<Main></Main>
-</> */}
+
 function Register() {
-
   const navigate = useNavigate()
-
   const [errorMsg, setErrorMsg] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
-
   const usernameRef = useRef()
   const passwordRef = useRef()
-
-
 
   async function getUserStatus(username) {
     let status = null;
     try {
-
       const res = await fetch(`http://localhost:5000/getUserStatus?username=${username}`)
       const data = await res.json()
       status = data.status
@@ -42,7 +33,6 @@ function Register() {
     if (!regex_pattern.test(password) || !regex_pattern.test(username)) {
       return 'Input contains unallowed characters'
     }
-
     return ''
   }
 
@@ -50,13 +40,13 @@ function Register() {
     setSuccessMsg('');
     setErrorMsg('');
     event.preventDefault();
-  
+
     const inputError = checkInput(usernameRef.current.value, passwordRef.current.value);
     setErrorMsg(inputError);
-  
+
     if (!inputError) {
       const status = await getUserStatus(usernameRef.current.value);
-  
+
       if (status) {
         setErrorMsg('Username already taken!');
       } else {
@@ -67,13 +57,12 @@ function Register() {
           },
           body: JSON.stringify({ username: usernameRef.current.value, password: passwordRef.current.value }),
         })
-        .then((res) => res.json())
-        .then((data) => {
-          setSuccessMsg(`Account '${usernameRef.current.value}' created`);
-          console.log(data);
-          localStorage.setItem('token', data.token)
-          localStorage.setItem('user', usernameRef.current.value)
-          navigate('/')
+          .then((res) => res.json())
+          .then((data) => {
+            setSuccessMsg(`Account '${usernameRef.current.value}' created`);
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('user', usernameRef.current.value)
+            navigate('/')
           })
           .catch((error) => {
             console.log(error);
@@ -81,7 +70,6 @@ function Register() {
       }
     }
   };
-  
 
   return (
     <>

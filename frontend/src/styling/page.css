@@ -111,10 +111,6 @@
   cursor: pointer;
 }
 
-.ratecon p {
-  font-size: 20px;
-  color: gold;
-}
 
 .lower-container {
   background-color: rgba(0, 0, 0, 0.67);
@@ -126,7 +122,7 @@
   padding: 20px;
 }
 
-.ratingcon {
+.pagemenu {
   /* height: 300px; */
   width: 380px;
   color: white;
@@ -138,6 +134,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
+}
+
+.ratecon p {
+  font-size: 20px;
+  color: gold;
 }
 
 .displayrating {

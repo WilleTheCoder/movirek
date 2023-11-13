@@ -222,4 +222,26 @@ const mongoose = require('mongoose')
 - [ ] Add wall to auth pages
 - [ ] Fix faster loading of movies
 
+
+Ideas
+
+Seperate rating for different classes: 
+- comedy rating
+- story rating
+- scary rating
+
+Popcorn sound when rating, depending on how many pops
+Fill popcorn box with the rating number pop
+Leaderboard: how many movies rated, comments
+Critical level depending on the ratings
+Achievements
+Influence level
+Level 
+
+Trailer
+for mobile
+
+REACT NATIVE
+
+
 Let's create an amazing movie app! 🎥🍿
