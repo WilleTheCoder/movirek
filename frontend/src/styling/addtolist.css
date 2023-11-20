@@ -1,3 +1,7 @@
+.addtoListCon{
+    padding: 30px;
+}
+
 .listcon{
     display: flex;
     flex-direction: column;
@@ -5,5 +9,19 @@
 
 .listcon button{
     margin: 10px;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+    border-radius: 5px;
+    width: 100px;
+    padding: 10px;
+}
+
+.newListButton{
+    padding: 10px;
+    border: none;
+    font-size: 15px;
+    border-radius: 5px;
+    width: fit-content;
     cursor: pointer;
 }

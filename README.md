@@ -173,12 +173,24 @@ const mongoose = require('mongoose')
 - [x] **Page for Each Movie Item**
 
 ## Account Features
-- [ ] Based on Ratings, Recommend Other Movies
-- [ ] 1 - 100 Popcorn 🍿 - Higher Score, Bigger Difference *
-- [ ] Create Lists
-- [ ] Add to Lists
-- [ ] Rate Movies
+**GENERAL**
+
+- [x] Create Lists
+- [ ] Recommended Movies (AI)
+- [ ] Find Movie to Watch (AI)
 - [ ] Achievements: e.g., Rated 10 Movies, Made a List ➡️ Level Up (XP)
+- [ ] Add favorite movie
+- [ ] Profile stats: overall rating, number of rated movies
+- [ ] Profile Level (XP)
+- [ ] Graph data i.e rating distribution
+  
+**RATING**
+- [x] Rate Movies: 1 - 100 Popcorn 🍿
+- [ ] Many rating categories i.e comedy, scaryness, story
+
+## User profile
+- [ ] Add favorite movie
+- [ ] User profile picture
 
 ## Filter
 - [ ] Search for movies and series
@@ -187,44 +199,20 @@ const mongoose = require('mongoose')
 ## Misc
 - [ ] Make UI look good
 - [ ] Make UI responsive
-- [ ] Store images somehow
+- [ ] Add wall to auth pages
 
-# Components
-
-# User profile
-- [ ] Add favorite movie
-- [ ] User profile picture
-- [ ] Show lists
-- [ ] Edit profile
-- [ ] AI
-
-# User class
-- [ ] When i login, user data is fetched from the database
-  - [ ] Lists, favorite movies, ratings..
-  - [ ] Create a class with this information to easily fetch
-  - [ ] Send class to all comp which uses the user data
-
-# Page
-- [ ] Rate the movie *
+## Page
+- [x] Rate the movie *
   - Rate window
   - Close window
   - submit rating 1-100
   - send to backend and put in database
-- [ ] Add the movie to a list 
+- [x] Add the movie to a list 
+- [ ] Remove a movie from the list 
 - [ ] Add to favorites
-- [ ] Remove aswell
-- [ ] Fetch similar movies with API
-- [ ] Add trailer and photos
+- [ ] Add trailer
 
-# Main
-- [ ] Search function
-- [ ] Filter function
-- [ ] Add wall to auth pages
-- [ ] Fix faster loading of movies
-
-
-Ideas
-
+# Ideas
 Seperate rating for different classes: 
 - comedy rating
 - story rating
@@ -232,16 +220,13 @@ Seperate rating for different classes:
 
 Popcorn sound when rating, depending on how many pops
 Fill popcorn box with the rating number pop
+
 Leaderboard: how many movies rated, comments
 Critical level depending on the ratings
-Achievements
 Influence level
 Level 
 
-Trailer
-for mobile
-
-REACT NATIVE
+for mobile REACT NATIVE
 
 
 Let's create an amazing movie app! 🎥🍿

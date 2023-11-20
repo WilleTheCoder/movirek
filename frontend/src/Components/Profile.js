@@ -1,6 +1,8 @@
+import React, { useState, useEffect } from "react";
 import Header from './Header'
 import '../styling/profile.css'
-import '../styling/global.css'
+import '../styling/addtolist.css'
+import ListBox from './ListBox';
 import { useNavigate } from 'react-router-dom'
 
 function Profile() {
@@ -13,6 +15,8 @@ function Profile() {
     navigate('/')
   }
 
+
+
   return (
     <div className='bg'>
       <Header></Header>
@@ -21,26 +25,18 @@ function Profile() {
         <div className='profilecon'>
 
           <div className='uppercon'>
-            <p className='profile-text'>PROFILE</p>
-            <button className='profile-text' onClick={handleClick}>Log Out</button>
           </div>
 
           <div className='midcon'>
-            <div className='mcon'>
-              <button className='genMovie'>Generate Movies</button>
-              <div className='profileImageCon'>
-                <div className='profileImage'></div>
-                <div className='dataCon'>
-                  <p>45 RATED | 3 LISTS </p>
-                  <p>7.31 OVERALL RATING </p>
-                </div>
-              </div>
-              <div className='favMovie'></div>
-            </div>
+            <h1> {user} </h1>
+            <h2> Rank: Newbie </h2>
+            <h3> 0 Ratings </h3>
+            <h3> Overall Rating: NaN </h3>
           </div>
 
           <div className='lowcon'>
-
+            <h1> Lists </h1>
+            <ListBox></ListBox>
           </div>
         </div>
       </div >

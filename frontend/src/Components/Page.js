@@ -10,7 +10,7 @@ import popcornIcon from '../assets/popcorn.png';
 import Box from './Box'
 import AddToList from "./AddToList";
 
-function Page({ data }) {
+function Page({ data, showPage}) {
 
     const user = localStorage.getItem('user');
     const [fdata, setData] = useState(data);
@@ -31,6 +31,11 @@ function Page({ data }) {
             .then((res) => res.json)
             .then((data) => {
             })
+    }
+
+    const showItem2 = (item) => {
+        console.log('in page box click');
+        showPage(item)
     }
 
 
@@ -85,6 +90,7 @@ function Page({ data }) {
                 return res.json()
             })
             .then((data) => {
+                console.log('similar movs: ', data);
                 setRecData(data.results)
             })
             .catch((err) => console.log(err))
@@ -159,8 +165,11 @@ function Page({ data }) {
                 )}
             </div>
             <div className="lower-container">
-                <h1> Recommended </h1>
+                <h1> You Might Like </h1>
                 <div className="recMoviesCon">
+                    {recData && recData.slice(0,4).map(item =>
+                        <Box key={item.id} data={item} onBoxClick={(event) => showItem2(item)} ></Box>
+                     )}
                 </div>
             </div>
 

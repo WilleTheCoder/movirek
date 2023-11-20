@@ -8,10 +8,26 @@ const router = express.Router()
 const baseurl = 'https://api.themoviedb.org/3/movie/157336'
 
 // exteral
+
+// get movie search results
+router.get('/search', (req, res) => {
+    console.log('search for movies');
+    console.log(req.query.search_query);
+    console.log(req.query.page);
+    url = `https://api.themoviedb.org/3/search/movie?query=${req.query.search_query}&include_adult=false&page=${req.query.page}`;
+    fetch(`${url}&api_key=${process.env.API_KEY}`)
+        .then((res) => res.json())
+        .then((data) => {
+            res.json(data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+})
+
 // get popular movies
 router.get('/popular', (req, res) => {
     const page = parseInt(req.query.page) || 1;
-    console.log("fetching!!")
     url = 'https://api.themoviedb.org/3/movie/popular'
     fetch(`${url}?page=${page}&api_key=${process.env.API_KEY}`)
         .then((res) => res.json())
@@ -21,6 +37,20 @@ router.get('/popular', (req, res) => {
         .catch((error) => {
             console.log(error)
         })
+})
+
+//get all genres
+router.get('/genres', (req, res) => {
+    console.log("fetching genres");
+    url = "https://api.themoviedb.org/3/genre/movie/list"
+    fetch(`${url}?api_key=${process.env.API_KEY}`)
+    .then((res) => res.json())
+    .then((data) => {
+        res.json(data)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
 })
 
 // get more details about a movie
@@ -43,8 +73,8 @@ router.get('/details', (req, res) => {
 router.get('/recommendedMovies', (req, res) => {
     console.log('fetching recommended movies')
     const movie_id = req.query.movie_id
-
-    fetch(`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${process.env.API_KEY}`)
+    https://api.themoviedb.org/3/movie/385687/similar
+    fetch(`https://api.themoviedb.org/3/movie/${movie_id}/similar?api_key=${process.env.API_KEY}`)
         .then((res) => res.json())
         .then((data) => {
             res.json(data)
@@ -106,45 +136,39 @@ router.post('/postNewAccount', async (req, res) => {
 //add movie to list
 
 router.post('/addMovieToList', async (req, res) => {
-    console.log(req.body.username);
-    // res.json({status: "its good"})
+    try {
 
-    const user = await User.findOne({username: req.body.username})
-    
-})
+        console.log('adding movie to list: ', req.body.movie_id);
+        const user = await User.findOne({ username: req.body.username })
 
-// get all users list names
-router.get('/getUserLists', async (req, res) => {
-    rlist = []
-    const user = await User.findOne({ username: req.query.username })
-    if (!user) {
-        return res.status(400).json({ error: 'no user found' });
-    }
-    user.lists.map(elem => {
-        rlist.push(elem.listname)
-    })
-
-    return res.json(rlist);
-})
-
-
-// see if user exists
-router.get('/getUserStatus', (req, res) => {
-    console.log("username:", req.query.username)
-
-    const query = User.find({ username: req.query.username }).exec()
-
-    query.then((user) => {
-        if (user.length > 0) {
-            res.json({ status: true })
-        } else {
-            res.json({ status: false })
+        if (!user) {
+            console.log('no user found');
+            return res.status(400).json({ error: 'no user found' })
         }
-    })
-        .catch((error) => {
-            console.log(error)
-            res.json({ status: false })
-        })
+
+        const lists = user.lists.find((list) => list.listname === req.body.listname)
+
+        if (!lists) {
+            console.log('no list');
+            return res.status(400).json({ error: 'no list with that name' })
+        }
+
+        const movies = lists.movies.find(movie => movie.movieId === req.body.movie_id);
+
+        if (movies) {
+            console.log('movie exists');
+            return res.status(400).json({ error: 'movie already exists in list' })
+        }
+
+        lists.movies.push({ movieId: req.body.movie_id })
+
+        await user.save()
+
+        return res.json({ success: 'movie added to list' })
+
+    } catch (error) {
+        return res.status(500).json({ error: 'failed to add movie to list' })
+    }
 })
 
 // adds a new movie rating for a user
@@ -172,6 +196,41 @@ router.post('/ratings', async (req, res) => {
     } catch (error) {
         return res.status(500).json({ error: 'failed to add rating' })
     }
+})
+
+// get all users list names
+router.get('/getUserLists', async (req, res) => {
+    const user = await User.findOne({ username: req.query.username })
+    if (!user) {
+        return res.status(400).json({ error: 'no user found' });
+    }
+
+    const lists = user.lists.map(list => ({
+        listname: list.listname,
+        movies: list.movies
+    }))
+    console.log(lists);
+    return res.json(lists)
+})
+
+
+// see if user exists
+router.get('/getUserStatus', (req, res) => {
+    console.log("username:", req.query.username)
+
+    const query = User.find({ username: req.query.username }).exec()
+
+    query.then((user) => {
+        if (user.length > 0) {
+            res.json({ status: true })
+        } else {
+            res.json({ status: false })
+        }
+    })
+        .catch((error) => {
+            console.log(error)
+            res.json({ status: false })
+        })
 })
 
 // add new list

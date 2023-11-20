@@ -6,7 +6,7 @@ import CreateList from "./CreateList";
 function AddToList(data) {
 
     const [listView, setListView] = useState(0)
-    const [list, setList] = useState(["sad"])
+    const [lists, setList] = useState([])
     const [addToList, setAddToList] = useState(0)
     const [listName, setListName] = useState(0)
 
@@ -14,8 +14,6 @@ function AddToList(data) {
         if (!addToList) {
             return
         }
-
-
 
         fetch('http://localhost:5000/addMovieToList', {
             method: 'POST',
@@ -30,7 +28,9 @@ function AddToList(data) {
                 }
             })
             .then((data) => console.log(data))
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                console.log(error.message)
+            })
 
         // console.log(listName)
         //movie_id, listname, username
@@ -49,7 +49,7 @@ function AddToList(data) {
             })
             .then((data) => {
                 console.log(data);
-                setList(prevList => [...prevList, ...data])
+                setList(data)
             })
             .catch((error) => {
                 console.log(error);
@@ -63,20 +63,23 @@ function AddToList(data) {
     }
 
     return (
-        <>  {listView ?
-            (<CreateList></CreateList>) : (null)}
+        <div className="addtoListCon">
 
-            <h3> Add to List </h3>
-            <button onClick={() => setListView(1)}> Create new List </button>
+            {listView ?
+                (<CreateList></CreateList>) : (null)}
+
+            <h2> Create a new List </h2>
+            <button className="newListButton" onClick={() => setListView(1)}> Create </button>
 
             <div className="listcon">
-
-                {list.map(name => (
-                    <button key={name} onClick={() => handleListClickEvent(name)}>{name}</button>
+                <h2>Add to List </h2>
+                {lists.map((list, index) => (
+                    <button key={index} onClick={() => handleListClickEvent(list.listname)}>{list.listname}</button>
                 ))}
             </div>
 
-        </>
+        </div>
+
     )
 }
 

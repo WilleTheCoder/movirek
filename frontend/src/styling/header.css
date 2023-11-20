@@ -1,75 +1,94 @@
-.logo img{
-height: 100px;
+.logo img {
+    height: 100px;
 }
 
 .header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 70px 70px; 
+    padding: 70px 70px;
     /* background-color: rgba(19, 27, 255, 0.47); */
     padding-top: 100px;
+    color: white;
 }
 
-.search {
+.searchcon {
     flex: 1;
     text-align: left;
     margin-left: 50px;
 }
 
+.searchwrapper {
+    background-color: transparent;
+    width: max-content;
+    font-size: 25px;
+}
+
+.searchwrapper input {
+    margin: 10px;
+    width: 300px;
+    border: none;
+    background-color: transparent;
+    font-size: 25px;
+    outline: none;
+    color: white;
+}
+
+.searchwrapper input::placeholder {
+    /* color: rgb(0, 17, 57); */
+}
+
+
 .login {
     flex: 1;
-    text-align: right;
     margin-right: 50px;
     text-decoration: none;
 }
 
-.login a{
-    color: white;
-    text-decoration: none;
+.selectUser {
+    color: black;
+    width: 200px;
+    margin-left: auto;
 }
 
-.login p{
+.login .but{
+    margin-left: auto;
+}
+
+.login p {
     font-size: 30px;
-    color: rgb(11, 30, 79);
+    /* color: rgb(11, 30, 79); */
     transition: color 0.3s ease;
+    width: 200px;
+    text-align: right;
 }
 
-.login p:hover{
+.login p:hover {
     color: rgb(0, 84, 252);
 }
 
-.login button{
+.login button {
     margin: 10px;
 }
 
-
-.logo{
+.logo {
     flex: 1;
     text-align: center;
 }
 
-.logo img{
-    transition: transform 0.3s ease ;
+.logo img {
+    transition: transform 0.3s ease;
     /* width: 90%; */
     height: auto;
 }
 
-.logo img:hover{
+.logo img:hover {
     transform: scale(1.05);
 }
 
 
-.slogan{
-    font-size: 0px;
-    color:white;
-    margin-top: 10px;
-}
-
-.slogan .blue-text{
-    color: rgb(0, 132, 255);
-}
-
-.slogan .red-text{
-    color: rgb(199, 71, 71);
+.slogan {
+    font-size: 40px;
+    color: rgb(11, 30, 79);
+    /* margin-top: 10px; */
 }

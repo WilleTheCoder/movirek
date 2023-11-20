@@ -1,0 +1,65 @@
+.listBoxCon {
+    display: flex;
+    overflow-x: auto;  /* Enable horizontal scrolling */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+/* WebKit Scrollbar Styles */
+.listBoxCon::-webkit-scrollbar {
+    width: 12px; /* Set the width of the scrollbar */
+}
+
+.listBoxCon::-webkit-scrollbar-thumb {
+    background-color: #143e6b; /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners of the thumb */
+}
+
+.listBoxCon::-webkit-scrollbar-track {
+    background-color: #eee; /* Color of the scrollbar track */
+    border-radius: 20px;
+}
+
+/* Hover styles for the scrollbar thumb */
+.listBoxCon::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(5, 113, 236)
+}
+
+.boxContainer {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping items to the next line */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+
+.boxCon {
+    margin: 20px;
+    width: 200px;
+    height: 200px;
+    border-radius: 6%;
+    text-align: center;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.boxCon:hover {
+    transform: scale(1.05);
+}
+
+.listbg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.textCon {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.694);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    font-size: 15px;
+}

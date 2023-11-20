@@ -1,7 +1,7 @@
 import react, { useState, useEffect } from 'react';
 import '../styling/createlist.css';
 
-function CreateList() {
+function CreateList({onClickEvent}) {
 
     const [listName, setList] = useState(null)
 
@@ -9,6 +9,7 @@ function CreateList() {
         const name = document.querySelector('.inpCreateList').value
         if (name.length > 0) {
             setList(name)
+            onClickEvent()
         }
     }
 
@@ -29,7 +30,7 @@ function CreateList() {
             <div className='listCon'>
                 <h3> Create List</h3>
                 <input className='inpCreateList' placeholder='List name..'></input>
-                <button onClick={clickCreate}> Create </button>
+                <button className="createButton" onClick={clickCreate}> Create </button>
             </div>
         </>
     )
