@@ -25,6 +25,26 @@ router.get('/search', (req, res) => {
         })
 })
 
+//get movie videos
+router.get('/videos', (req, res) => {
+    console.log('fetching videos for movie: ', req.query.movie_id);
+    f_url = `https://api.themoviedb.org/3/movie/${req.query.movie_id}/videos?api_key=${process.env.API_KEY}`;
+    console.log(f_url);
+    fetch(`${f_url}`)
+        .then((res) => res.json())
+        .then((data) => {
+            let fdata = data.results.filter((el) => {
+                return el.official === true && el.type === 'Trailer' 
+            })
+            console.log("filtered: ", Object.keys(fdata).length);
+
+            res.json(fdata);
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+})
+
 // get popular movies
 router.get('/popular', (req, res) => {
     const page = parseInt(req.query.page) || 1;
@@ -44,13 +64,13 @@ router.get('/genres', (req, res) => {
     console.log("fetching genres");
     url = "https://api.themoviedb.org/3/genre/movie/list"
     fetch(`${url}?api_key=${process.env.API_KEY}`)
-    .then((res) => res.json())
-    .then((data) => {
-        res.json(data)
-    })
-    .catch((error) => {
-        console.log(error)
-    })
+        .then((res) => res.json())
+        .then((data) => {
+            res.json(data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
 })
 
 // get more details about a movie
@@ -61,7 +81,7 @@ router.get('/details', (req, res) => {
     fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.API_KEY}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data)
+            // console.log(data)
             res.json(data)
         })
         .catch((error) => {
@@ -73,7 +93,7 @@ router.get('/details', (req, res) => {
 router.get('/recommendedMovies', (req, res) => {
     console.log('fetching recommended movies')
     const movie_id = req.query.movie_id
-    https://api.themoviedb.org/3/movie/385687/similar
+    // https://api.themoviedb.org/3/movie/385687/similar
     fetch(`https://api.themoviedb.org/3/movie/${movie_id}/similar?api_key=${process.env.API_KEY}`)
         .then((res) => res.json())
         .then((data) => {
@@ -244,13 +264,11 @@ router.get('/addList', async (req, res) => {
         if (!user) {
             return res.status(400).json({ error: 'no user found' })
         }
-        console.log("yyaa");
         const listStatus = user.lists.find((key) => key.listname === req.query.list_name)
 
         if (listStatus) {
             res.json({ err: 'duplicate list name' })
         } else {
-            console.log("yyaa");
             user.lists.push({ listname: req.query.list_name, movies: [] })
         }
 

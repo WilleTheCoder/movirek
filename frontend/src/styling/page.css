@@ -1,33 +1,29 @@
 .page {
-  color: rgb(255, 255, 255);
+  color: black;
   height: 100%;
 }
 
 .overlay {
   position: fixed;
-  min-width: 900px;
-  background-color: rgba(0, 0, 0, 0.898);
-  height: 800px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  background-color: rgba(255, 255, 255, 0.898);
   /* Center horizontally */
   /* align-items: center; Center vertically */
   z-index: 1000;
   /* Ensure the overlay is above other content */
+  width: 1100px;
+  border-radius: 20px;
+
 }
 
 .upper-container {
-  padding: 30px;
-  background-color: rgba(13, 13, 13, 0.412);
-  height: 40%;
   margin: 40px;
+  height: fit-content;
   border-radius: 10px;
   display: grid;
-  width: 800px;
+  width: 90%;
   grid-template-columns: repeat(5, 1fr);
   /* 5 equal-width columns */
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 0.4fr);
   /* 3 equal-height rows */
 }
 
@@ -37,7 +33,7 @@
   transition: transform 0.3s ease;
   border-radius: 5px;
   /* background-color: red; */
-  width: 280px;
+  margin-right: 30px;
 }
 
 .poster:hover {
@@ -60,27 +56,32 @@
 .title-content {
   /* background-color: red; */
   display: flex;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 .title-content p {
   background-color: rgb(0, 51, 105);
-  padding: 5px;
-  margin-right: 10px;
+  padding: 10px;
+  margin-right: 15px;
   border-radius: 5px;
   text-align: center;
   font-weight: bold;
+  text-align: center;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.title-content p:hover{
+  transform: scale(1.05);
 }
 
 .title p {
   font-size: 17px;
-  padding-left: 10px;
-
 }
 
 .description {
   /* background-color: rgb(102, 252, 21); */
-  font-size: 13px;
+  font-size: 17px;
   grid-area: 2 / 3 / 3 / -1;
 }
 
@@ -92,14 +93,14 @@
 
 .usermenu .icon {
   font-size: 2rem;
-  color: rgb(255, 255, 255);
+  color: black;
   transition: transform 0.3s ease;
   cursor: pointer;
   margin: 20px;
 }
 
 .usermenu .icon:hover {
-  color: rgb(255, 255, 255);
+  color: rgb(14, 114, 207);
   transform: scale(1.2);
 }
 
@@ -111,15 +112,19 @@
   cursor: pointer;
 }
 
-
 .lower-container {
-  background-color: rgba(0, 0, 0, 0.67);
-  padding: 20px;
+ padding: 20px;
+ padding-top: 0px;
 }
 
-.recMoviesCon{
+.rec-movies-con {
   display: flex;
-  padding: 20px;
+}
+
+.box-con {
+  border-radius: 20px;
+  padding: 5px;
+  margin: 0 auto;
 }
 
 .pagemenu {
@@ -134,6 +139,9 @@
   transform: translate(-50%, -50%);
   z-index: 1000;
   padding: 20px;
+}
+
+.ratecon{
 }
 
 .ratecon p {
@@ -159,4 +167,8 @@
   width: 30px;
   padding: 1px;
   cursor: pointer;
+}
+
+.trailer-con{
+
 }

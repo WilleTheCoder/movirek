@@ -48,7 +48,7 @@ function Main() {
                 return res.json();
             })
             .then(data => {
-                console.log(data.genres.map(k => genreOptions.push({value: k.name, label: k.name})))
+                console.log(data.genres.map(k => genreOptions.push({ value: k.name, label: k.name })))
                 console.log(genreOptions);
 
             })
@@ -123,6 +123,11 @@ function Main() {
 
     return (
         <div className='bg'>
+            {showItem ? (
+                <div className='overlay overlay-active'>
+                    <Page data={showItem} showPage={showItemCallBack} />
+                </div>) : null}
+
             <Header callbackFun={handleHeaderCallBack}></Header>
             <div className='filterCon'>
 
@@ -139,10 +144,6 @@ function Main() {
                 <button className='filterButton'>Filter </button>
             </div>
             <div className='main'>
-                {showItem ? (
-                    <div className='overlay overlay-active'>
-                        <Page data={showItem} showPage={showItemCallBack} />
-                    </div>) : null}
 
                 <div className='container'>
                     <div className='box-grid'>

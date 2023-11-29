@@ -1,0 +1,23 @@
+.player p {
+    color: black;
+}
+
+.trailer-wrapper {
+    /* overflow: hidden; */
+    /* z-index: 1; */
+    /* width: fit-content; */
+    display: flex;
+    justify-content: center;
+}
+
+.trailer-wrapper:hover {}
+
+.trailer {
+    margin: 20px;
+    transition: 1s ease;
+}
+
+.trailer:hover {
+    transform: scale(1.05);
+
+}

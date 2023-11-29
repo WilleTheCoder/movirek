@@ -9,8 +9,9 @@ import '../styling/page.css'
 import popcornIcon from '../assets/popcorn.png';
 import Box from './Box'
 import AddToList from "./AddToList";
+import YouTubePlayer from "./YoutubePlayer";
 
-function Page({ data, showPage}) {
+function Page({ data, showPage }) {
 
     const user = localStorage.getItem('user');
     const [fdata, setData] = useState(data);
@@ -66,6 +67,7 @@ function Page({ data, showPage}) {
     }
 
     useEffect(() => {
+        console.log("data", data);
         // fetching movie page data
         fetch(`http://localhost:5000/details?movie_id=${data.id}`)
             .then((res) => {
@@ -90,7 +92,6 @@ function Page({ data, showPage}) {
                 return res.json()
             })
             .then((data) => {
-                console.log('similar movs: ', data);
                 setRecData(data.results)
             })
             .catch((err) => console.log(err))
@@ -107,6 +108,7 @@ function Page({ data, showPage}) {
     }, [ratingView, addView]);
 
     return (
+
         <div className="page">
 
             {ratingView ? (
@@ -156,23 +158,31 @@ function Page({ data, showPage}) {
                                 : (<button onClick={handleRateEvent}><FontAwesomeIcon icon={farStar} className="icon" /> </button>)
                             }
                         </div>
-                        <button onClick={handleAddMovieEvent}>
-                            <FontAwesomeIcon icon={faSquarePlus} className="icon" />
-                        </button>
+                        <div className="addcon">
+                            
+                            <button onClick={handleAddMovieEvent}>
+                                <FontAwesomeIcon icon={faSquarePlus} className="icon" />
+                            </button>
+                        </div>
                     </div>
                 ) : (
                     <></>
                 )}
             </div>
-            <div className="lower-container">
-                <h1> You Might Like </h1>
-                <div className="recMoviesCon">
-                    {recData && recData.slice(0,4).map(item =>
-                        <Box key={item.id} data={item} onBoxClick={(event) => showItem2(item)} ></Box>
-                     )}
-                </div>
+            <div className="trailer-con">
+                <YouTubePlayer movie_id = {data.id}></YouTubePlayer>
             </div>
 
+            <div className="lower-container">
+                {recData ? <h1> You Might Like </h1> : null}
+                <div className="rec-movies-con">
+                    {recData && recData.slice(0, 4).map(item =>
+                        <div className='box-con' >
+                            <Box key={item.id} data={item} onBoxClick={(event) => showItem2(item)} ></Box>
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
     )
 }
